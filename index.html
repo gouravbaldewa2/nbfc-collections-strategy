@@ -80,27 +80,25 @@ em.italic{font-family:var(--display-font);font-style:normal;font-weight:800;colo
 .nav button:hover{border-color:var(--primary)}
 .controls{position:fixed;bottom:24px;right:24px;display:flex;gap:8px;z-index:50}
 .controls button{padding:10px 18px;background:var(--secondary);border:none;color:#fff;font-family:var(--display-font);font-size:11px;font-weight:700;letter-spacing:.05em;text-transform:uppercase;cursor:pointer;border-radius:3px;transition:all .15s}
-.controls button:hover{background:var(--primary)}
-.controls button#print{background:transparent;color:var(--text);border:2px solid var(--border)}
-.controls button#print:hover{background:var(--primary);color:#fff;border-color:var(--primary)}
+.controls button:hover{background:var(--primary);color:#fff}
 
 /* ----- Slide 1: Cover ----- */
 .cover{justify-content:flex-end;background:var(--secondary);color:#fff;border-bottom:6px solid var(--primary)}
-.cover::before{content:"";position:absolute;top:0;left:0;right:0;height:300px;background:radial-gradient(800px 400px at 80% 0%,rgba(227,24,55,.18),transparent 60%);pointer-events:none}
-.cover .frame{color:#888;border-bottom-color:#333}
+.cover::before{content:"";position:absolute;top:0;left:0;right:0;height:340px;background:radial-gradient(900px 480px at 80% 0%,rgba(227,24,55,.22),transparent 65%);pointer-events:none}
+.cover .frame{color:#cfcfcf;border-bottom-color:#3a3a3a}
 .cover .frame .brand{color:#fff}
-.cover .frame .brand .dot{box-shadow:0 0 0 3px rgba(227,24,55,.25)}
-.cover .foot{color:#888;border-top-color:#333}
+.cover .frame .brand .dot{box-shadow:0 0 0 3px rgba(227,24,55,.3)}
+.cover .foot{color:#cfcfcf;border-top-color:#3a3a3a}
 .cover .foot .pageno{color:var(--tertiary)}
-.cover .h1{font-family:var(--display-font);font-weight:900;font-size:128px;color:#fff;line-height:.95;letter-spacing:-.045em}
+.cover .h1{font-family:var(--display-font);font-weight:900;font-size:122px;color:#fff;line-height:.96;letter-spacing:-.045em}
 .cover .h1 span{color:var(--tertiary)}
-.cover .h1 em{font-family:var(--display-font);font-style:normal;font-weight:900;color:var(--primary)}
-.cover .meta{display:grid;grid-template-columns:repeat(4,1fr);gap:32px;margin-top:48px;padding-top:24px;border-top:1px solid #333;max-width:1100px}
-.cover .meta div span{display:block;font-family:var(--mono-font);font-size:10px;letter-spacing:.22em;text-transform:uppercase;color:#888;margin-bottom:8px;font-weight:500}
+.cover .h1 em{font-family:var(--display-font);font-style:normal;font-weight:900;color:#FF4D67}
+.cover .meta{display:grid;grid-template-columns:repeat(4,1fr);gap:32px;margin-top:48px;padding-top:24px;border-top:1px solid #3a3a3a;max-width:1100px}
+.cover .meta div span{display:block;font-family:var(--mono-font);font-size:10px;letter-spacing:.22em;text-transform:uppercase;color:#bdbdbd;margin-bottom:8px;font-weight:500}
 .cover .meta div p{font-family:var(--display-font);font-size:14px;font-weight:600;color:#fff;letter-spacing:-.005em}
-.cover .corner{position:absolute;top:120px;right:80px;writing-mode:vertical-rl;transform:rotate(180deg);font-family:var(--mono-font);font-size:10.5px;letter-spacing:.32em;text-transform:uppercase;color:#666;font-weight:500}
-.cover .seal{position:absolute;top:140px;right:140px;width:180px;height:180px;border:2px solid var(--primary);border-radius:50%;display:flex;align-items:center;justify-content:center;font-family:var(--display-font);font-style:normal;font-weight:700;color:var(--primary);font-size:11px;letter-spacing:.22em;text-transform:uppercase;text-align:center;animation:spin 60s linear infinite;background:rgba(227,24,55,.04)}
-.cover .seal::before{content:"";position:absolute;inset:14px;border:1px solid rgba(227,24,55,.4);border-radius:50%}
+.cover .corner{position:absolute;top:120px;right:80px;writing-mode:vertical-rl;transform:rotate(180deg);font-family:var(--mono-font);font-size:10.5px;letter-spacing:.32em;text-transform:uppercase;color:#bdbdbd;font-weight:500}
+.cover .seal{position:absolute;top:140px;right:140px;width:180px;height:180px;border:none;border-radius:50%;display:flex;align-items:center;justify-content:center;font-family:var(--display-font);font-style:normal;font-weight:800;color:#fff;font-size:11px;letter-spacing:.22em;text-transform:uppercase;text-align:center;animation:spin 60s linear infinite;background:var(--primary);box-shadow:0 8px 32px rgba(227,24,55,.35)}
+.cover .seal::before{content:"";position:absolute;inset:14px;border:1.5px solid rgba(255,255,255,.55);border-radius:50%}
 @keyframes spin{from{transform:rotate(0)}to{transform:rotate(360deg)}}
 
 /* ----- Section header ----- */
@@ -188,11 +186,11 @@ table.matrix tr:last-child td{border-bottom:none}
 .heat .hcell{padding:14px 10px;text-align:center;font-family:var(--mono-font);font-size:11px;color:var(--text);border-radius:3px;display:flex;align-items:center;justify-content:center;min-height:46px;font-weight:600}
 .heat .hhead{background:transparent;color:var(--text);font-size:9.5px;letter-spacing:.18em;text-transform:uppercase;font-weight:600}
 .heat .hrow{font-family:var(--display-font);font-weight:700;font-size:13px;color:var(--text);text-align:left;padding-left:0;justify-content:flex-start;letter-spacing:-.01em}
-.h1{background:#FAEAE9;color:var(--error)}
-.h2{background:#FEF3E3;color:var(--warning)}
-.h3{background:#FBF4E8;color:var(--tertiary)}
-.h4{background:#E6F4ED;color:var(--success)}
-.h5{background:var(--success);color:#fff}
+.h1{background:#FAEAE9;color:#8B1F17;font-weight:700}
+.h2{background:#FEF3E3;color:#8F4C00;font-weight:700}
+.h3{background:#F5E5BD;color:#6B4E1A;font-weight:700}
+.h4{background:#D6EFE0;color:#0E5F37;font-weight:700}
+.h5{background:var(--success);color:#fff;font-weight:700}
 
 /* ----- Cascade visual ----- */
 .cascade{display:flex;align-items:flex-end;gap:0;margin-top:30px;height:240px;border-bottom:1px solid var(--border);padding-bottom:0}
@@ -216,14 +214,25 @@ table.matrix tr:last-child td{border-bottom:none}
 
 /* ----- Playbook link (button-style) ----- */
 .playbook-link{display:inline-flex;align-items:center;gap:14px;margin-top:28px;padding:14px 22px;border:2px solid var(--primary);background:var(--primary);color:#fff;text-decoration:none;font-family:var(--display-font);font-size:11px;letter-spacing:.06em;text-transform:uppercase;font-weight:700;transition:all .15s;border-radius:3px}
-.playbook-link:hover{background:var(--primary-dark);border-color:var(--primary-dark)}
+.playbook-link:hover{background:var(--primary-dark);border-color:var(--primary-dark);color:#fff}
+.playbook-link:hover .label em,.playbook-link:hover .arrow{color:#fff}
 .playbook-link .arrow{font-family:var(--display-font);font-style:normal;font-weight:900;font-size:18px;letter-spacing:0;text-transform:none;color:#fff}
-.playbook-link .label{display:flex;flex-direction:column;align-items:flex-start;line-height:1.3}
-.playbook-link .label em{font-family:var(--body-font);font-style:italic;font-size:10px;letter-spacing:.02em;text-transform:none;color:rgba(255,255,255,.85);margin-bottom:2px;font-weight:400}
+.playbook-link .label{display:flex;flex-direction:column;align-items:flex-start;line-height:1.3;color:#fff}
+.playbook-link .label em{font-family:var(--body-font);font-style:italic;font-size:10px;letter-spacing:.02em;text-transform:none;color:#fff;opacity:.92;margin-bottom:2px;font-weight:400}
+.playbook-link.cover-cta{margin-top:36px}
+.playbook-link.full-width{display:flex;justify-content:space-between;width:100%;margin-top:24px;padding:18px 24px}
+.playbook-link.full-width .label{flex:1}
 
 /* ----- Strong (used inline in slides) ----- */
 .slide strong{color:var(--text);font-weight:600}
 .slide ol li strong{color:var(--text);font-weight:700;font-family:var(--display-font);letter-spacing:-.005em}
+
+/* ----- Slide 16: Two-cards grid + Ask panel ----- */
+.two-cards{display:grid;grid-template-columns:2fr 1fr;gap:24px}
+.panel.ask-panel{border-top-color:var(--tertiary);background:var(--tertiary-soft)}
+.panel.ask-panel .tag{background:var(--tertiary);color:#fff}
+.panel.ask-panel h3{color:var(--text)}
+.panel.ask-panel li::before{background:var(--tertiary)}
 
 /* ----- Print ----- */
 @media print{
@@ -239,7 +248,6 @@ table.matrix tr:last-child td{border-bottom:none}
 <div class="controls">
   <button id="prev">&larr; Prev</button>
   <button id="next">Next &rarr;</button>
-  <button id="print" onclick="window.print()">Print</button>
 </div>
 
 <div class="deck" id="deck">
@@ -266,7 +274,7 @@ table.matrix tr:last-child td{border-bottom:none}
       <div><span>Regulatory anchor</span><p>RBI Nov-12-2021 IRACP</p></div>
       <div><span>Benchmark set</span><p>BAF, Shriram, HDFC, ICICI, SBI</p></div>
     </div>
-    <a class="playbook-link" href="STRATEGY.html" target="_blank" rel="noopener"><span class="label"><em>Companion document</em>Read the operating playbook</span><span class="arrow">&rarr;</span></a>
+    <a class="playbook-link cover-cta" href="STRATEGY.html" target="_blank" rel="noopener"><span class="label"><em>Companion document</em>Read the operating playbook</span><span class="arrow">&rarr;</span></a>
   </div>
   <div class="foot">
     <div>NBFC &middot; CHIEF RISK OFFICE</div>
@@ -618,7 +626,7 @@ table.matrix tr:last-child td{border-bottom:none}
     <div class="hcell hrow">SBI</div>
     <div class="hcell h2">2</div><div class="hcell h3">3</div><div class="hcell h2">2</div><div class="hcell h5">5</div><div class="hcell h5">5</div><div class="hcell h5">5</div><div class="hcell h3">3</div>
 
-    <div class="hcell hrow" style="color:var(--gold);font-style:italic">Our target FY27</div>
+    <div class="hcell hrow" style="color:var(--primary);font-weight:800">Our target FY27</div>
     <div class="hcell h5">5</div><div class="hcell h4">4</div><div class="hcell h5">5</div><div class="hcell h4">4</div><div class="hcell h5">5</div><div class="hcell h4">4</div><div class="hcell h5">5</div>
   </div>
 
@@ -981,7 +989,7 @@ table.matrix tr:last-child td{border-bottom:none}
 
   <div class="thinrule" style="margin:18px 0 14px"></div>
 
-  <div class="grid" style="grid-template-columns:2fr 1fr;gap:24px">
+  <div class="grid two-cards">
     <div class="panel"><span class="tag">Board KPIs &middot; quarterly</span>
       <h3>The five numbers we'll be judged on</h3>
       <ul>
@@ -992,8 +1000,8 @@ table.matrix tr:last-child td{border-bottom:none}
         <li><strong>Collections NPS</strong> &middot; current &minus;31 &rarr; target above &minus;10</li>
       </ul>
     </div>
-    <div class="panel" style="border-color:var(--gold)"><span class="tag">Ask of the Board</span>
-      <h3 style="color:var(--gold)"><em>Approve</em></h3>
+    <div class="panel ask-panel"><span class="tag">Ask of the Board</span>
+      <h3>Board approvals required</h3>
       <ul>
         <li>FY26 collections tech capex: <strong>Rs.42 cr</strong></li>
         <li>In-house tele scale-up: <strong>+180 FTE</strong></li>
@@ -1001,9 +1009,9 @@ table.matrix tr:last-child td{border-bottom:none}
         <li>Agency tiering &amp; rotation governance</li>
         <li>CRO-led daily flow huddle as standing forum</li>
       </ul>
-      <a class="playbook-link" href="STRATEGY.html" target="_blank" rel="noopener" style="margin-top:18px"><span class="label"><em>Full SOPs &middot; scripts &middot; KPIs &middot; RACI</em>Read the 50-page operating playbook</span><span class="arrow">&rarr;</span></a>
     </div>
   </div>
+  <a class="playbook-link full-width" href="STRATEGY.html" target="_blank" rel="noopener"><span class="label"><em>Companion document &middot; Full SOPs &middot; scripts &middot; KPIs &middot; RACI</em>Read the 50-page operating playbook</span><span class="arrow">&rarr;</span></a>
 
   <div class="foot"><div>SECTION IV &middot; EXECUTION</div><div class="pageno">16</div></div>
 </section>
