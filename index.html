@@ -1,0 +1,990 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>Win the 0-90 Window  |  NBFC Collections Strategy  |  Board Deck</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght,SOFT@9..144,300..900,30..100&family=Geist:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+:root{
+  --ink:#0c0f17;
+  --ink-2:#141826;
+  --ink-3:#1d2233;
+  --paper:#f3ecdd;
+  --paper-soft:#e8dfc9;
+  --rule:#3a3f52;
+  --mute:#8b8f9e;
+  --oxblood:#a8331f;
+  --oxblood-soft:#c45c45;
+  --gold:#c9a227;
+  --gold-soft:#e7c44d;
+  --jade:#3f7a5f;
+  --slate:#5a6479;
+  --grad-risk:linear-gradient(135deg,#a8331f 0%,#c9a227 100%);
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html,body{height:100%;background:var(--ink);color:var(--paper);font-family:"Geist",sans-serif;font-weight:400;-webkit-font-smoothing:antialiased;text-rendering:geometricPrecision}
+body{overflow:hidden}
+.deck{position:relative;width:100vw;height:100vh;overflow:hidden}
+.slide{position:absolute;inset:0;padding:56px 72px;display:flex;flex-direction:column;opacity:0;visibility:hidden;transition:opacity .6s ease;background:var(--ink);overflow:hidden}
+.slide.active{opacity:1;visibility:visible}
+
+/* ----- Reusable type ----- */
+.eyebrow{font-family:"JetBrains Mono",monospace;font-size:11px;letter-spacing:.22em;text-transform:uppercase;color:var(--gold);font-weight:500}
+.eyebrow.muted{color:var(--mute)}
+.display{font-family:"Fraunces",serif;font-weight:300;font-variation-settings:"opsz" 144,"SOFT" 100;letter-spacing:-.02em;line-height:.96}
+.kicker{font-family:"Fraunces",serif;font-style:italic;font-weight:400;color:var(--paper-soft)}
+.body{font-family:"Geist",sans-serif;font-size:14.5px;line-height:1.55;color:var(--paper-soft)}
+.mono{font-family:"JetBrains Mono",monospace}
+em.italic{font-family:"Fraunces",serif;font-style:italic;font-weight:400;color:var(--gold-soft)}
+
+/* ----- Frame chrome ----- */
+.frame{position:absolute;left:72px;right:72px;top:32px;display:flex;justify-content:space-between;align-items:center;font-family:"JetBrains Mono",monospace;font-size:10.5px;letter-spacing:.18em;text-transform:uppercase;color:var(--mute)}
+.frame .brand{display:flex;gap:14px;align-items:center}
+.frame .brand .dot{width:6px;height:6px;background:var(--oxblood);border-radius:50%;box-shadow:0 0 0 3px rgba(168,51,31,.18)}
+.foot{position:absolute;left:72px;right:72px;bottom:28px;display:flex;justify-content:space-between;align-items:flex-end;font-family:"JetBrains Mono",monospace;font-size:10.5px;letter-spacing:.18em;text-transform:uppercase;color:var(--mute)}
+.foot .pageno{font-family:"Fraunces",serif;font-style:italic;text-transform:none;letter-spacing:0;font-size:13px;color:var(--paper-soft)}
+.rule{height:1px;background:linear-gradient(90deg,transparent,var(--rule) 20%,var(--rule) 80%,transparent)}
+.thinrule{height:1px;background:var(--rule)}
+
+/* ----- Navigation ----- */
+.nav{position:fixed;right:24px;top:50%;transform:translateY(-50%);display:flex;flex-direction:column;gap:8px;z-index:50}
+.nav button{width:8px;height:8px;border-radius:50%;border:1px solid var(--rule);background:transparent;cursor:pointer;padding:0;transition:all .25s}
+.nav button.on{background:var(--gold);border-color:var(--gold);transform:scale(1.3)}
+.controls{position:fixed;bottom:24px;right:24px;display:flex;gap:8px;z-index:50}
+.controls button{padding:8px 14px;background:var(--ink-2);border:1px solid var(--rule);color:var(--paper-soft);font-family:"JetBrains Mono",monospace;font-size:10.5px;letter-spacing:.16em;text-transform:uppercase;cursor:pointer;border-radius:2px;transition:all .2s}
+.controls button:hover{background:var(--ink-3);color:var(--gold);border-color:var(--gold)}
+
+/* ----- Slide 1: Cover ----- */
+.cover{justify-content:flex-end;background:radial-gradient(1200px 600px at 80% 20%,rgba(201,162,39,.08),transparent 60%),radial-gradient(900px 500px at 10% 90%,rgba(168,51,31,.10),transparent 60%),var(--ink)}
+.cover .h1{font-size:128px;color:var(--paper)}
+.cover .h1 span{color:var(--gold)}
+.cover .h1 em{font-family:"Fraunces",serif;font-style:italic;font-weight:300;color:var(--oxblood-soft)}
+.cover .meta{display:grid;grid-template-columns:repeat(4,1fr);gap:32px;margin-top:48px;padding-top:24px;border-top:1px solid var(--rule);max-width:1100px}
+.cover .meta div span{display:block;font-family:"JetBrains Mono",monospace;font-size:10px;letter-spacing:.2em;text-transform:uppercase;color:var(--mute);margin-bottom:6px}
+.cover .meta div p{font-family:"Fraunces",serif;font-size:16px;color:var(--paper)}
+.cover .corner{position:absolute;top:120px;right:72px;writing-mode:vertical-rl;transform:rotate(180deg);font-family:"JetBrains Mono",monospace;font-size:10.5px;letter-spacing:.3em;text-transform:uppercase;color:var(--mute)}
+.cover .seal{position:absolute;top:140px;right:140px;width:180px;height:180px;border:1px solid var(--rule);border-radius:50%;display:flex;align-items:center;justify-content:center;font-family:"Fraunces",serif;font-style:italic;color:var(--gold);font-size:14px;letter-spacing:.05em;animation:spin 60s linear infinite}
+.cover .seal::before{content:"";position:absolute;inset:24px;border:1px dashed rgba(201,162,39,.4);border-radius:50%}
+@keyframes spin{from{transform:rotate(0)}to{transform:rotate(360deg)}}
+
+/* ----- Section header style ----- */
+.s-head{display:flex;justify-content:space-between;align-items:flex-end;margin-bottom:36px}
+.s-head .left h2{font-family:"Fraunces",serif;font-weight:300;font-size:56px;letter-spacing:-.02em;line-height:1;color:var(--paper);margin-top:8px}
+.s-head .left h2 em{font-style:italic;color:var(--gold-soft);font-weight:400}
+.s-head .right{text-align:right;max-width:380px}
+.s-head .right p{font-family:"Fraunces",serif;font-style:italic;font-size:15px;color:var(--paper-soft);line-height:1.4}
+
+/* ----- Cards / panels ----- */
+.grid{display:grid;gap:18px}
+.panel{background:linear-gradient(180deg,rgba(255,255,255,.025),rgba(255,255,255,0));border:1px solid var(--rule);padding:22px;border-radius:3px;position:relative}
+.panel .tag{position:absolute;top:-9px;left:18px;background:var(--ink);padding:0 8px;font-family:"JetBrains Mono",monospace;font-size:10px;letter-spacing:.2em;text-transform:uppercase;color:var(--gold)}
+.panel h3{font-family:"Fraunces",serif;font-weight:400;font-size:22px;color:var(--paper);margin-bottom:8px;letter-spacing:-.01em}
+.panel h3 em{font-style:italic;color:var(--gold-soft)}
+.panel p{font-size:13.5px;line-height:1.55;color:var(--paper-soft)}
+.panel ul{list-style:none;margin-top:10px}
+.panel li{font-size:13px;line-height:1.6;color:var(--paper-soft);padding-left:18px;position:relative}
+.panel li::before{content:"";position:absolute;left:0;top:9px;width:8px;height:1px;background:var(--gold)}
+
+/* ----- KPI numerals ----- */
+.kpi{display:flex;flex-direction:column;gap:6px}
+.kpi .v{font-family:"Fraunces",serif;font-weight:300;font-size:64px;line-height:1;color:var(--paper);letter-spacing:-.02em}
+.kpi .v em{font-style:italic;color:var(--gold)}
+.kpi .l{font-family:"JetBrains Mono",monospace;font-size:10.5px;letter-spacing:.2em;text-transform:uppercase;color:var(--mute)}
+.kpi .s{font-size:12.5px;color:var(--paper-soft);margin-top:4px}
+
+/* ----- Tables ----- */
+table.matrix{width:100%;border-collapse:collapse;font-size:12.5px}
+table.matrix th,table.matrix td{padding:12px 14px;text-align:left;vertical-align:top;border-bottom:1px solid var(--rule)}
+table.matrix th{font-family:"JetBrains Mono",monospace;font-size:10px;letter-spacing:.2em;text-transform:uppercase;color:var(--gold);font-weight:500;background:rgba(201,162,39,.04)}
+table.matrix th.bucket{color:var(--oxblood-soft)}
+table.matrix td{color:var(--paper-soft);line-height:1.5}
+table.matrix td.b{font-family:"Fraunces",serif;font-style:italic;color:var(--paper);font-size:14px;border-right:1px solid var(--rule)}
+table.matrix tr:hover td{background:rgba(255,255,255,.015)}
+
+/* ----- Bars / charts ----- */
+.bar-row{display:flex;align-items:center;gap:14px;margin-bottom:10px}
+.bar-row .name{width:140px;font-family:"Fraunces",serif;font-size:14px;color:var(--paper)}
+.bar-row .track{flex:1;height:18px;background:rgba(255,255,255,.04);position:relative;border-radius:1px}
+.bar-row .fill{height:100%;background:var(--grad-risk);position:relative}
+.bar-row .v{font-family:"JetBrains Mono",monospace;font-size:11px;color:var(--gold);min-width:50px;text-align:right}
+
+/* ----- Stage cards (DPD buckets) ----- */
+.stage-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:16px;flex:1}
+.stage{background:var(--ink-2);border:1px solid var(--rule);padding:22px;display:flex;flex-direction:column;position:relative;overflow:hidden}
+.stage::before{content:"";position:absolute;left:0;top:0;bottom:0;width:3px;background:var(--gold)}
+.stage.s2::before{background:linear-gradient(180deg,var(--gold),var(--oxblood-soft))}
+.stage.s3::before{background:var(--oxblood-soft)}
+.stage.s4::before{background:var(--oxblood)}
+.stage .num{font-family:"Fraunces",serif;font-weight:300;font-size:54px;line-height:1;color:var(--paper);letter-spacing:-.03em}
+.stage .num em{font-style:italic;color:var(--gold-soft)}
+.stage .lbl{font-family:"JetBrains Mono",monospace;font-size:10px;letter-spacing:.2em;text-transform:uppercase;color:var(--mute);margin:6px 0 14px}
+.stage h4{font-family:"Fraunces",serif;font-weight:400;font-size:18px;color:var(--paper);margin-bottom:12px}
+.stage .ch{margin-bottom:14px}
+.stage .ch .ct{font-family:"JetBrains Mono",monospace;font-size:9.5px;letter-spacing:.18em;text-transform:uppercase;color:var(--gold);margin-bottom:4px}
+.stage .ch p{font-size:11.5px;line-height:1.5;color:var(--paper-soft)}
+
+/* ----- Pillars ----- */
+.pillars{display:grid;grid-template-columns:repeat(3,1fr);gap:18px;flex:1}
+.pillar{border:1px solid var(--rule);padding:24px;position:relative;background:linear-gradient(180deg,rgba(201,162,39,.03),transparent)}
+.pillar .num{font-family:"Fraunces",serif;font-weight:300;font-size:42px;color:var(--gold);line-height:1;font-style:italic}
+.pillar h3{font-family:"Fraunces",serif;font-size:22px;font-weight:400;color:var(--paper);margin:8px 0 10px}
+.pillar p{font-size:13px;line-height:1.55;color:var(--paper-soft)}
+
+/* ----- Roadmap ----- */
+.timeline{position:relative;padding:30px 0;flex:1;display:flex;flex-direction:column;gap:18px}
+.tl-row{display:grid;grid-template-columns:120px 1fr;gap:24px;align-items:flex-start;padding:14px 0;border-bottom:1px dashed var(--rule)}
+.tl-row .when{font-family:"JetBrains Mono",monospace;font-size:11px;letter-spacing:.2em;text-transform:uppercase;color:var(--gold);padding-top:4px}
+.tl-row .what{display:grid;grid-template-columns:1fr 1fr 1fr;gap:18px}
+.tl-row .what div h5{font-family:"Fraunces",serif;font-size:15px;font-weight:400;color:var(--paper);margin-bottom:4px}
+.tl-row .what div p{font-size:12px;color:var(--paper-soft);line-height:1.5}
+
+/* ----- Quote / pull ----- */
+.pullquote{font-family:"Fraunces",serif;font-style:italic;font-weight:300;font-size:32px;line-height:1.25;color:var(--paper);max-width:780px;letter-spacing:-.01em}
+.pullquote .src{display:block;font-family:"JetBrains Mono",monospace;font-style:normal;font-size:10.5px;letter-spacing:.2em;text-transform:uppercase;color:var(--mute);margin-top:18px}
+
+/* ----- Heatmap ----- */
+.heat{display:grid;grid-template-columns:160px repeat(7,1fr);gap:6px;font-size:11.5px}
+.heat .hcell{padding:14px 10px;text-align:center;font-family:"JetBrains Mono",monospace;font-size:10.5px;color:var(--paper);border-radius:2px;display:flex;align-items:center;justify-content:center;min-height:46px}
+.heat .hhead{background:transparent;color:var(--gold);font-size:9.5px;letter-spacing:.18em;text-transform:uppercase}
+.heat .hrow{font-family:"Fraunces",serif;font-size:14px;color:var(--paper);text-align:left;padding-left:0;justify-content:flex-start}
+.h1{background:rgba(168,51,31,.18)}
+.h2{background:rgba(201,162,39,.18)}
+.h3{background:rgba(201,162,39,.36)}
+.h4{background:rgba(63,122,95,.32)}
+.h5{background:rgba(63,122,95,.5)}
+
+/* ----- Cascade visual ----- */
+.cascade{display:flex;align-items:flex-end;gap:0;margin-top:30px;height:240px}
+.cas-col{flex:1;display:flex;flex-direction:column;justify-content:flex-end;align-items:center;border-right:1px dashed var(--rule);padding:0 18px;position:relative}
+.cas-col:last-child{border-right:none}
+.cas-bar{width:100%;background:var(--grad-risk);position:relative}
+.cas-col .lbl{position:absolute;top:-26px;left:0;right:0;text-align:center;font-family:"JetBrains Mono",monospace;font-size:10px;letter-spacing:.18em;text-transform:uppercase;color:var(--mute)}
+.cas-col .pct{font-family:"Fraunces",serif;font-size:24px;color:var(--gold);font-style:italic;margin-top:8px}
+.cas-col .desc{font-size:11px;color:var(--paper-soft);margin-top:4px;text-align:center;line-height:1.4}
+
+/* ----- Two-col ----- */
+.two-col{display:grid;grid-template-columns:1fr 1fr;gap:36px;flex:1}
+.three-col{display:grid;grid-template-columns:repeat(3,1fr);gap:18px;flex:1}
+.four-col{display:grid;grid-template-columns:repeat(4,1fr);gap:14px}
+
+/* ----- Lists with annotations ----- */
+.deflist{display:grid;grid-template-columns:120px 1fr;gap:16px;row-gap:18px}
+.deflist dt{font-family:"JetBrains Mono",monospace;font-size:10.5px;letter-spacing:.2em;text-transform:uppercase;color:var(--gold);padding-top:3px}
+.deflist dd{font-family:"Fraunces",serif;font-size:15px;color:var(--paper);line-height:1.45}
+.deflist dd em{font-style:italic;color:var(--paper-soft)}
+
+/* ----- Print ----- */
+@media print{
+  body{overflow:visible}
+  .nav,.controls{display:none}
+  .slide{position:relative;page-break-after:always;height:100vh;opacity:1!important;visibility:visible!important}
+}
+</style>
+</head>
+<body>
+
+<div class="nav" id="nav"></div>
+<div class="controls">
+  <button id="prev">&larr; Prev</button>
+  <button id="next">Next &rarr;</button>
+  <button id="print" onclick="window.print()">Print</button>
+</div>
+
+<div class="deck" id="deck">
+
+<!-- =================== SLIDE 1: COVER =================== -->
+<section class="slide cover active">
+  <div class="frame">
+    <div class="brand"><span class="dot"></span> CONFIDENTIAL  &middot;  BOARD MATERIAL</div>
+    <div>STRATEGY PAPER &middot; FY26</div>
+  </div>
+  <div class="corner">DPD &middot; STAGE 1 &middot; STAGE 2 &middot; PRE-NPA</div>
+  <div class="seal">EARLY-BUCKET&nbsp;&middot;&nbsp;COLLECTIONS</div>
+
+  <div style="margin-top:auto">
+    <div class="eyebrow" style="margin-bottom:24px">Collections Strategy &middot; 0-90 Days Past Due</div>
+    <h1 class="display h1">
+      Win the<br/>
+      <em>0-90</em> <span>window.</span><br/>
+      Prevent the NPA.
+    </h1>
+    <div class="meta">
+      <div><span>Audience</span><p>Board &middot; Risk &amp; Audit Cmte</p></div>
+      <div><span>Scope</span><p>Retail NBFC, mixed book</p></div>
+      <div><span>Regulatory anchor</span><p>RBI Nov-12-2021 IRACP</p></div>
+      <div><span>Benchmark set</span><p>BAF, Shriram, HDFC, ICICI, SBI</p></div>
+    </div>
+  </div>
+  <div class="foot">
+    <div>NBFC &middot; CHIEF RISK OFFICE</div>
+    <div class="pageno">i.</div>
+  </div>
+</section>
+
+<!-- =================== SLIDE 2: WHY NOW =================== -->
+<section class="slide">
+  <div class="frame">
+    <div class="brand"><span class="dot"></span> WHY THIS MATTERS NOW</div>
+    <div>02 / 16</div>
+  </div>
+  <div class="s-head">
+    <div class="left">
+      <div class="eyebrow">Section I &middot; The case for action</div>
+      <h2>The early bucket is where <em>profit lives</em>&nbsp;&mdash; or dies.</h2>
+    </div>
+    <div class="right">
+      <p>"Once an account crosses 90 DPD, recovery economics collapse. The board's leverage point is upstream &mdash; not in NPA, but in Stage 1 and Stage 2."</p>
+    </div>
+  </div>
+
+  <div class="four-col" style="margin-bottom:32px">
+    <div class="kpi"><div class="v"><em>~6.5%</em></div><div class="l">NBFC Sector GNPA &middot; FY24 peak</div><div class="s">Sliding to 4.5% expected by FY26 (RBI FSR)</div></div>
+    <div class="kpi"><div class="v"><em>3-4&times;</em></div><div class="l">ECL multiplier Stage 1 &rarr; Stage 2</div><div class="s">Provisioning shock crushes RoA</div></div>
+    <div class="kpi"><div class="v"><em>62%</em></div><div class="l">Roll-back rate from 1-30 DPD</div><div class="s">If treated; collapses to ~28% by 60+</div></div>
+    <div class="kpi"><div class="v"><em>0.7-1.1%</em></div><div class="l">RoA upside from early-bucket excellence</div><div class="s">Top-quartile vs median NBFC, internal est.</div></div>
+  </div>
+
+  <div class="thinrule" style="margin-bottom:24px"></div>
+
+  <div class="two-col">
+    <div>
+      <div class="eyebrow muted" style="margin-bottom:10px">Three structural shifts</div>
+      <ol style="list-style:none;display:flex;flex-direction:column;gap:14px">
+        <li><strong style="font-family:Fraunces,serif;font-size:18px;color:var(--paper)">01 &middot; Daily DPD stamping</strong><p class="body">Post Nov-2021, NBFCs must mark accounts overdue daily; upgrade requires <em class="italic">full</em> arrears clearance. The bookkeeping cushion is gone.</p></li>
+        <li><strong style="font-family:Fraunces,serif;font-size:18px;color:var(--paper)">02 &middot; Customer is digital, intent is brittle</strong><p class="body">eNACH/UPI Autopay penetration is ~70%+ on new books. Bounce intelligence is real-time; so must be the response.</p></li>
+        <li><strong style="font-family:Fraunces,serif;font-size:18px;color:var(--paper)">03 &middot; Cost-to-collect is a CFO metric</strong><p class="body">Field cost per case is rising 12-15% YoY. Channel orchestration is the only sustainable lever.</p></li>
+      </ol>
+    </div>
+    <div>
+      <div class="eyebrow muted" style="margin-bottom:10px">The thesis</div>
+      <p class="pullquote">Treat the 0-90 window as a <em class="italic">manufacturing line</em>: instrumented, segmented, and orchestrated. Every day saved in the bucket is a basis point on RoA.</p>
+    </div>
+  </div>
+  <div class="foot"><div>SECTION I &middot; WHY NOW</div><div class="pageno">02</div></div>
+</section>
+
+<!-- =================== SLIDE 3: RBI DPD FRAMEWORK =================== -->
+<section class="slide">
+  <div class="frame"><div class="brand"><span class="dot"></span> REGULATORY FOUNDATION</div><div>03 / 16</div></div>
+  <div class="s-head">
+    <div class="left">
+      <div class="eyebrow">RBI IRACP &middot; Master Direction &middot; Nov-12-2021</div>
+      <h2>What the regulator <em>actually</em> requires.</h2>
+    </div>
+    <div class="right">
+      <p>The clarification harmonised NBFC asset classification with banks &mdash; ending decades of "month-end" reckoning.</p>
+    </div>
+  </div>
+
+  <div class="grid" style="grid-template-columns:1.2fr 1fr;gap:28px;flex:1">
+    <div>
+      <dl class="deflist">
+        <dt>Daily stamping</dt><dd>Overdue position must be reckoned at <em>day-end</em>, not month-end. <em>An account is "overdue" if not paid on the due date.</em></dd>
+        <dt>NPA threshold</dt><dd>Asset becomes NPA on <em>91st day</em> of overdue status, irrespective of part-payment.</dd>
+        <dt>Upgrade rule</dt><dd>NPA can be upgraded to standard <em>only on clearance of entire arrears</em> &mdash; principal &amp; interest. Single EMI cure does not lift status.</dd>
+        <dt>SMA stages</dt><dd><em>SMA-0:</em> 1-30 DPD &middot; <em>SMA-1:</em> 31-60 &middot; <em>SMA-2:</em> 61-90. Reportable to CRILC for &ge;5 Cr.</dd>
+        <dt>IndAS ECL</dt><dd>Stage 1 (12-mo ECL) &rarr; Stage 2 on SICR or 30+ DPD &rarr; Stage 3 on default. Provision multiplier 3-5&times; from S1 to S2.</dd>
+        <dt>Fair Practices</dt><dd>RBI 2022 directions: agent code, recorded calls, no contact 1900-0700, no harassment, grievance escalation in 30 days.</dd>
+        <dt>Digital Lending</dt><dd>Cooling-off period, KFS, look-back &amp; reset on regulated lender's books; FLDG 5% cap.</dd>
+        <dt>SARFAESI</dt><dd>Available to NBFCs &ge;100Cr asset size; secured exposures &ge;20L. 13(2)&rarr;13(4) timing is the playbook lever.</dd>
+      </dl>
+    </div>
+    <div class="panel">
+      <span class="tag">Implication</span>
+      <h3>Three operating mandates fall out of the rules</h3>
+      <ul>
+        <li><strong>Real-time DPD engine</strong> with day-end stamping, customer-level rather than facility-level cure logic.</li>
+        <li><strong>Cure ≠ partial payment.</strong> Collection KPI must be <em>full-arrears resolution</em>, not nominal recovery.</li>
+        <li><strong>Stage migration</strong> (SMA-0/1/2) is the leading indicator the board should track &mdash; not just GNPA.</li>
+      </ul>
+      <div class="thinrule" style="margin:18px 0"></div>
+      <h3 style="font-size:18px"><em>What the regulator does <span style="color:var(--oxblood-soft)">not</span> dictate</em></h3>
+      <p>Channel mix, sequencing, restructure offers, and analytics. <em class="italic">This is where competitive advantage compounds.</em></p>
+    </div>
+  </div>
+
+  <div class="foot"><div>SECTION I &middot; REGULATORY ANCHOR</div><div class="pageno">03</div></div>
+</section>
+
+<!-- =================== SLIDE 4: COST OF INACTION =================== -->
+<section class="slide">
+  <div class="frame"><div class="brand"><span class="dot"></span> THE ROLL-FORWARD CASCADE</div><div>04 / 16</div></div>
+  <div class="s-head">
+    <div class="left">
+      <div class="eyebrow">Section I &middot; Cost of inaction</div>
+      <h2>Every bucket missed <em>multiplies</em> the loss.</h2>
+    </div>
+    <div class="right"><p>Indicative roll-forward economics on a Rs.100 crore monthly delinquent flow, mid-risk retail book.</p></div>
+  </div>
+
+  <div class="cascade">
+    <div class="cas-col"><div class="lbl">Pre-DPD</div><div class="cas-bar" style="height:14%"></div><div class="pct">~3%</div><div class="desc">Bounced mandates, intent leak</div></div>
+    <div class="cas-col"><div class="lbl">1-30 (SMA-0)</div><div class="cas-bar" style="height:30%"></div><div class="pct">~38%</div><div class="desc">Cure prob if treated within 7 days</div></div>
+    <div class="cas-col"><div class="lbl">31-60 (SMA-1)</div><div class="cas-bar" style="height:55%"></div><div class="pct">~52%</div><div class="desc">Cure prob halves; FOS cost surge</div></div>
+    <div class="cas-col"><div class="lbl">61-90 (SMA-2)</div><div class="cas-bar" style="height:78%"></div><div class="pct">~72%</div><div class="desc">Roll-to-NPA risk; legal triggered</div></div>
+    <div class="cas-col"><div class="lbl">90+ (NPA)</div><div class="cas-bar" style="height:100%"></div><div class="pct">~88%</div><div class="desc">ECL Stage 3; recovery via SARFAESI/legal</div></div>
+  </div>
+
+  <div class="grid" style="grid-template-columns:repeat(3,1fr);gap:18px;margin-top:auto;padding-top:24px">
+    <div class="panel"><span class="tag">P&amp;L drag</span><h3>~Rs.180-220 cr per Rs.100 cr lost</h3><p>Capital tied in NPA + provisions + write-off + collection cost + opportunity cost over 18 months.</p></div>
+    <div class="panel"><span class="tag">CX drag</span><h3>NPS &minus;28 &rarr; &minus;46</h3><p>Field-only contact in late buckets degrades brand; affects cross-sell and customer LTV.</p></div>
+    <div class="panel"><span class="tag">Cost-to-collect</span><h3>1.4% &rarr; 9.6% of POS</h3><p>Field/legal cost rises 7&times; from SMA-0 to NPA. Digital cure is 25-40&times; cheaper than feet-on-street.</p></div>
+  </div>
+
+  <div class="foot"><div>SECTION I &middot; COST CASCADE</div><div class="pageno">04</div></div>
+</section>
+
+<!-- =================== SLIDE 5: COMPETITOR SCAN OVERVIEW =================== -->
+<section class="slide">
+  <div class="frame"><div class="brand"><span class="dot"></span> COMPETITIVE LANDSCAPE</div><div>05 / 16</div></div>
+  <div class="s-head">
+    <div class="left">
+      <div class="eyebrow">Section II &middot; Industry deep-dive</div>
+      <h2>How the <em>best operators</em> in India play the 0-90 window.</h2>
+    </div>
+    <div class="right"><p>Five archetypes &mdash; each distilled to its dominant lever and what we should adopt, adapt, or ignore.</p></div>
+  </div>
+
+  <table class="matrix">
+    <thead><tr>
+      <th class="bucket">Operator</th><th>Dominant lever</th><th>Channel signature</th><th>Analytical edge</th><th>Restructure / settlement</th><th>What we copy</th>
+    </tr></thead>
+    <tbody>
+      <tr>
+        <td class="b">Bajaj Finance</td>
+        <td>Pre-due nudge + digital self-cure</td>
+        <td>App push + WhatsApp + IVR; tele dominates 1-30; agency tiered 4 levels</td>
+        <td>Behavioural propensity-to-default; mandate-health score per customer</td>
+        <td>"Flexi" loan re-pricing; one-time EMI moratorium via app</td>
+        <td>Digital-first cure stack &amp; tiered agency mgmt</td>
+      </tr>
+      <tr>
+        <td class="b">Shriram Finance</td>
+        <td>Relationship-led field</td>
+        <td>Branch-anchored FOS, cluster officers; vehicle repossession SOP</td>
+        <td>Ground intelligence on borrower (used-CV operator behaviour, route, fleet)</td>
+        <td>Reschedule for cyclical income; transporter-friendly EMI dates</td>
+        <td>Relationship intelligence &amp; cyclical restructuring</td>
+      </tr>
+      <tr>
+        <td class="b">HDFC Bank</td>
+        <td>In-house tele &amp; predictive dialer</td>
+        <td>Tier-1 in-house; Tier-2/3 outsourced; segmented by ticket &amp; risk</td>
+        <td>Champion-challenger on dunning, geo-allocation, time-of-day</td>
+        <td>Conservative; OTS only on charged-off</td>
+        <td>Champion-challenger discipline; in-house core</td>
+      </tr>
+      <tr>
+        <td class="b">ICICI Bank</td>
+        <td>Self-serve via iMobile</td>
+        <td>WhatsApp + email + voice cadence; geo-tag FOS app; co-applicant chain</td>
+        <td>Behavioural scorecards refreshed monthly; cure prob per cell</td>
+        <td>EMI reschedule self-serve; 1 free deferral / 12 mo</td>
+        <td>Self-serve EMI rescheduler &amp; geo-tagged FOS</td>
+      </tr>
+      <tr>
+        <td class="b">SBI</td>
+        <td>Scale &amp; legal funnel</td>
+        <td>Mass FOS, branch-led, Lok Adalat / OTS schemes for stress</td>
+        <td>Bureau triggers &amp; sectoral stress lists; gov-linked recovery</td>
+        <td>Periodic OTS schemes; aggressive Lok Adalat usage 60-90+</td>
+        <td>OTS calendar &amp; Lok Adalat playbook for late bucket</td>
+      </tr>
+    </tbody>
+  </table>
+  <div class="foot"><div>SECTION II &middot; LANDSCAPE</div><div class="pageno">05</div></div>
+</section>
+
+<!-- =================== SLIDE 6: BAJAJ FINANCE =================== -->
+<section class="slide">
+  <div class="frame"><div class="brand"><span class="dot"></span> DEEP-DIVE 1 &middot; BAJAJ FINANCE</div><div>06 / 16</div></div>
+  <div class="s-head">
+    <div class="left">
+      <div class="eyebrow">Operator profile</div>
+      <h2>Bajaj Finance &mdash; <em>the digital cure machine</em>.</h2>
+    </div>
+    <div class="right"><p>BAF runs the highest-quality unsecured book at scale by treating collections as a CRM problem, not a recovery problem.</p></div>
+  </div>
+
+  <div class="four-col" style="margin-bottom:24px">
+    <div class="kpi"><div class="v"><em>~Rs.4.0L cr</em></div><div class="l">AUM &middot; FY25E</div></div>
+    <div class="kpi"><div class="v"><em>~1.0%</em></div><div class="l">Stage 3 (NNPA equiv.)</div><div class="s">Best-in-class for unsecured-heavy book</div></div>
+    <div class="kpi"><div class="v"><em>9.6 cr</em></div><div class="l">Customer franchise &middot; cross-sell engine</div></div>
+    <div class="kpi"><div class="v"><em>Tiered</em></div><div class="l">4 agency layers by DPD x ticket x intent</div></div>
+  </div>
+
+  <div class="three-col">
+    <div class="panel"><span class="tag">Pre-DPD</span>
+      <h3>Mandate-health <em>obsession</em></h3>
+      <p>Each NACH/UPI mandate is scored on bounce probability daily. T-3 push to update auto-debit account, T-1 reminder, T+0 IVR pre-bounce nudge for high-risk.</p>
+      <ul><li>Self-serve mandate switch in app</li><li>Re-presentation on T+2 with prior notice</li><li>Bounce-charge waiver as cure incentive</li></ul>
+    </div>
+    <div class="panel"><span class="tag">1-30 DPD</span>
+      <h3>App-first <em>self-cure</em></h3>
+      <p>Pay link via WhatsApp, part-payment supported, "promise-to-pay" captured digitally with auto-debit on PTP date. Tele follows only if app-pay fails.</p>
+      <ul><li>Bot-first IVR, agent-second</li><li>Behavioural cohort A/B on dunning copy</li><li>Cure-weighted agent incentive</li></ul>
+    </div>
+    <div class="panel"><span class="tag">31-90 DPD</span>
+      <h3>Tiered <em>agency orchestration</em></h3>
+      <p>Tier-1 (in-house tele), Tier-2 (premium agency for high-ticket), Tier-3 (volume agency), Tier-4 (specialised legal). Cases auto-rotate on no-cure.</p>
+      <ul><li>Cure-prob model assigns tier</li><li>Daily agency scorecard, monthly rotation</li><li>Flexi/restructure offered selectively to cure intent-positive cases</li></ul>
+    </div>
+  </div>
+
+  <div class="thinrule" style="margin:24px 0 14px"></div>
+  <p class="kicker" style="font-size:18px;color:var(--paper)"><em class="italic">Lesson for us:</em> &nbsp;the unit economics of digital cure (Rs.40-60 per case) vs field (Rs.900-1,400) is the <em class="italic">single largest</em> margin lever. Build the digital stack first.</p>
+
+  <div class="foot"><div>SECTION II &middot; BAJAJ</div><div class="pageno">06</div></div>
+</section>
+
+<!-- =================== SLIDE 7: SHRIRAM FINANCE =================== -->
+<section class="slide">
+  <div class="frame"><div class="brand"><span class="dot"></span> DEEP-DIVE 2 &middot; SHRIRAM FINANCE</div><div>07 / 16</div></div>
+  <div class="s-head">
+    <div class="left">
+      <div class="eyebrow">Operator profile</div>
+      <h2>Shriram Finance &mdash; <em>the relationship engine</em>.</h2>
+    </div>
+    <div class="right"><p>Shriram has run a sub-prime, used-CV book profitably for 40+ years by knowing the borrower better than the borrower knows himself.</p></div>
+  </div>
+
+  <div class="four-col" style="margin-bottom:24px">
+    <div class="kpi"><div class="v"><em>~Rs.2.5L cr</em></div><div class="l">AUM &middot; CV/PV/MSME/Gold</div></div>
+    <div class="kpi"><div class="v"><em>~5.4%</em></div><div class="l">Stage 3 &middot; sub-prime book</div><div class="s">Stable through cycles &mdash; the moat</div></div>
+    <div class="kpi"><div class="v"><em>~3,000</em></div><div class="l">Branches &middot; cluster-led</div></div>
+    <div class="kpi"><div class="v"><em>Branch-anchored</em></div><div class="l">FOS reports to local manager, not central</div></div>
+  </div>
+
+  <div class="three-col">
+    <div class="panel"><span class="tag">Pre-DPD</span>
+      <h3>Cluster <em>intelligence</em></h3>
+      <p>Branch officers know route patterns, freight cycles, fuel-price stress. EMI dates aligned to transporter cash-flow (post-trip not month-start).</p>
+      <ul><li>Seasonal calendars by region</li><li>Borrower visit before due date in stress months</li><li>Co-borrower / guarantor mapped pre-disbursal</li></ul>
+    </div>
+    <div class="panel"><span class="tag">1-60 DPD</span>
+      <h3>Field-led <em>negotiation</em></h3>
+      <p>Doorstep from day 5; trust-led conversation, not script-driven. Reschedule offered against verifiable income disruption.</p>
+      <ul><li>Cure on PTP &gt; 70% (industry &lt;50%)</li><li>Restructure to seasonal EMI</li><li>Co-borrower invocation as a lever, not a threat</li></ul>
+    </div>
+    <div class="panel"><span class="tag">61-90 DPD</span>
+      <h3>Repo <em>SOP</em>, used-CV remarketing</h3>
+      <p>Vehicle repossession is industrial-grade: yard network, valuation, auction within 21 days. Loss-given-default minimised by active remarketing channel.</p>
+      <ul><li>In-house repo agents</li><li>Auction tied to dealer network</li><li>OTS framework for stress cases</li></ul>
+    </div>
+  </div>
+
+  <div class="thinrule" style="margin:24px 0 14px"></div>
+  <p class="kicker" style="font-size:18px;color:var(--paper)"><em class="italic">Lesson for us:</em> &nbsp;for secured/semi-secured books, <em class="italic">collateral-cycle expertise</em> + cluster-level borrower intelligence beats centralised analytics. Hybrid is the answer, not pure-digital.</p>
+
+  <div class="foot"><div>SECTION II &middot; SHRIRAM</div><div class="pageno">07</div></div>
+</section>
+
+<!-- =================== SLIDE 8: TOP 3 BANKS =================== -->
+<section class="slide">
+  <div class="frame"><div class="brand"><span class="dot"></span> DEEP-DIVE 3 &middot; HDFC / ICICI / SBI</div><div>08 / 16</div></div>
+  <div class="s-head">
+    <div class="left">
+      <div class="eyebrow">Bank benchmark</div>
+      <h2>What the <em>top three banks</em> teach NBFCs.</h2>
+    </div>
+    <div class="right"><p>Banks operate at 5-10x the scale of most NBFCs &mdash; they industrialise what NBFCs prototype.</p></div>
+  </div>
+
+  <div class="three-col">
+    <div class="panel"><span class="tag">HDFC Bank</span>
+      <h3>Champion-challenger <em>everywhere</em></h3>
+      <ul>
+        <li>In-house tele for Tier-1 (high-ticket / low-risk); volume outsourced</li>
+        <li>Predictive dialer with real-time list refresh; agent screens primed with last 90-day behaviour</li>
+        <li>Champion-challenger on dunning copy, time-of-day, channel sequence &mdash; refresh every 2 weeks</li>
+        <li>Daily DPD-bucket flow review; <em class="italic">"the meeting that runs the bank"</em></li>
+      </ul>
+      <p style="margin-top:12px"><strong>Adopt:</strong> the operating cadence and challenger discipline.</p>
+    </div>
+    <div class="panel"><span class="tag">ICICI Bank</span>
+      <h3>Self-serve <em>by design</em></h3>
+      <ul>
+        <li>iMobile EMI rescheduler: 1 free deferral every 12 months, instant approval if cure-prob clears bar</li>
+        <li>WhatsApp business API for payments, statements, and PTP capture</li>
+        <li>Geo-tagged FOS app with photo + GPS + recorded conversation; QC sampled centrally</li>
+        <li>Co-applicant chain auto-triggered at 30 DPD</li>
+      </ul>
+      <p style="margin-top:12px"><strong>Adopt:</strong> self-serve restructure and FOS digital backbone.</p>
+    </div>
+    <div class="panel"><span class="tag">SBI</span>
+      <h3>Scale, settlement <em>calendar</em>, legal funnel</h3>
+      <ul>
+        <li>Quarterly OTS schemes for stress segments &mdash; published, calendarised, governance-led</li>
+        <li>Massive Lok Adalat usage (16-20% of late-bucket recoveries)</li>
+        <li>Branch-led collection blended with central CRMS; gov-linked priority sector recovery</li>
+        <li>SARFAESI funnel disciplined; 13(2) auto-issued at defined threshold</li>
+      </ul>
+      <p style="margin-top:12px"><strong>Adopt:</strong> calendarised OTS &amp; Lok Adalat for 60-90+ buckets.</p>
+    </div>
+  </div>
+
+  <div class="thinrule" style="margin:24px 0 14px"></div>
+  <p class="kicker" style="font-size:16px;color:var(--paper-soft)">Banks don't beat NBFCs on innovation &mdash; they beat them on <em class="italic">repeatability</em>. The lesson: build a system, not heroic individuals.</p>
+
+  <div class="foot"><div>SECTION II &middot; BANKS</div><div class="pageno">08</div></div>
+</section>
+
+<!-- =================== SLIDE 9: BENCHMARK SCORECARD =================== -->
+<section class="slide">
+  <div class="frame"><div class="brand"><span class="dot"></span> BENCHMARK SCORECARD</div><div>09 / 16</div></div>
+  <div class="s-head">
+    <div class="left">
+      <div class="eyebrow">Section II &middot; Synthesis</div>
+      <h2>Where each operator <em>wins</em> &mdash; and where we can leapfrog.</h2>
+    </div>
+    <div class="right"><p>Heat-mapped capability score across the seven levers that matter in 0-90 collections (1=basic, 5=best-in-class).</p></div>
+  </div>
+
+  <div class="heat" style="margin-top:8px">
+    <div class="hcell hhead">&nbsp;</div>
+    <div class="hcell hhead">Pre-DPD nudge</div>
+    <div class="hcell hhead">Tele cure</div>
+    <div class="hcell hhead">Digital self-cure</div>
+    <div class="hcell hhead">Field / FOS</div>
+    <div class="hcell hhead">Restructure</div>
+    <div class="hcell hhead">Legal funnel</div>
+    <div class="hcell hhead">Analytics &amp; ops</div>
+
+    <div class="hcell hrow">Bajaj Finance</div>
+    <div class="hcell h5">5</div><div class="hcell h5">5</div><div class="hcell h5">5</div><div class="hcell h3">3</div><div class="hcell h4">4</div><div class="hcell h3">3</div><div class="hcell h5">5</div>
+
+    <div class="hcell hrow">Shriram Finance</div>
+    <div class="hcell h4">4</div><div class="hcell h3">3</div><div class="hcell h2">2</div><div class="hcell h5">5</div><div class="hcell h5">5</div><div class="hcell h4">4</div><div class="hcell h3">3</div>
+
+    <div class="hcell hrow">HDFC Bank</div>
+    <div class="hcell h4">4</div><div class="hcell h5">5</div><div class="hcell h4">4</div><div class="hcell h4">4</div><div class="hcell h3">3</div><div class="hcell h4">4</div><div class="hcell h5">5</div>
+
+    <div class="hcell hrow">ICICI Bank</div>
+    <div class="hcell h4">4</div><div class="hcell h4">4</div><div class="hcell h5">5</div><div class="hcell h4">4</div><div class="hcell h4">4</div><div class="hcell h4">4</div><div class="hcell h4">4</div>
+
+    <div class="hcell hrow">SBI</div>
+    <div class="hcell h2">2</div><div class="hcell h3">3</div><div class="hcell h2">2</div><div class="hcell h5">5</div><div class="hcell h5">5</div><div class="hcell h5">5</div><div class="hcell h3">3</div>
+
+    <div class="hcell hrow" style="color:var(--gold);font-style:italic">Our target FY27</div>
+    <div class="hcell h5">5</div><div class="hcell h4">4</div><div class="hcell h5">5</div><div class="hcell h4">4</div><div class="hcell h5">5</div><div class="hcell h4">4</div><div class="hcell h5">5</div>
+  </div>
+
+  <div class="thinrule" style="margin:28px 0 14px"></div>
+
+  <div class="three-col">
+    <div class="panel"><span class="tag">Adopt</span><h3>Bajaj's digital stack + ICICI's self-serve</h3><p>Pre-DPD nudges, mandate-health, app rescheduler, IVR-bot. Build it as platform, not project.</p></div>
+    <div class="panel"><span class="tag">Adapt</span><h3>Shriram's cluster intelligence</h3><p>For secured/MSME book. Branch officer holds the relationship; central analytics arms them.</p></div>
+    <div class="panel"><span class="tag">Calendarise</span><h3>SBI's OTS &amp; Lok Adalat calendar</h3><p>Quarterly published settlement windows for SMA-2 &amp; just-NPA. Governance-led, not deal-by-deal.</p></div>
+  </div>
+
+  <div class="foot"><div>SECTION II &middot; SCORECARD</div><div class="pageno">09</div></div>
+</section>
+
+<!-- =================== SLIDE 10: STRATEGIC PILLARS =================== -->
+<section class="slide">
+  <div class="frame"><div class="brand"><span class="dot"></span> OUR STRATEGY</div><div>10 / 16</div></div>
+  <div class="s-head">
+    <div class="left">
+      <div class="eyebrow">Section III &middot; Strategic architecture</div>
+      <h2>Six pillars hold up the <em>0-90 system</em>.</h2>
+    </div>
+    <div class="right"><p>Each pillar has a single accountable owner, a measurable outcome, and a 90-day first deliverable.</p></div>
+  </div>
+
+  <div class="pillars" style="grid-template-rows:1fr 1fr">
+    <div class="pillar"><div class="num">i.</div><h3>Data &amp; Decisioning</h3><p>Unified customer 360, real-time DPD stamping, propensity-to-default &amp; cure-probability models. <em class="italic">Output:</em> a daily action queue, ranked.</p></div>
+    <div class="pillar"><div class="num">ii.</div><h3>Channel Orchestration</h3><p>Rules engine choosing channel, intensity, sequence by segment x bucket. <em class="italic">Output:</em> cost-to-collect at top-quartile.</p></div>
+    <div class="pillar"><div class="num">iii.</div><h3>Customer Experience</h3><p>Tone calibrated to risk, hardship policy codified, RBI Fair Practices hard-wired. <em class="italic">Output:</em> NPS in collected pool above &minus;10.</p></div>
+    <div class="pillar"><div class="num">iv.</div><h3>Workforce &amp; Agency</h3><p>In-house core for Tier-1; agencies tiered, scored, rotated. Cure-weighted incentives. <em class="italic">Output:</em> agency cure uplift 15%+ vs baseline.</p></div>
+    <div class="pillar"><div class="num">v.</div><h3>Tech Stack</h3><p>Dialer, WhatsApp BSP, FOS app with geo-tag, dunning engine, dispute desk, repo workflow. <em class="italic">Output:</em> single pane of glass for collections.</p></div>
+    <div class="pillar"><div class="num">vi.</div><h3>Governance</h3><p>Daily flow huddle, weekly bucket review, monthly NPA-prevention scorecard, quarterly board update. <em class="italic">Output:</em> the meeting that runs collections.</p></div>
+  </div>
+
+  <div class="foot"><div>SECTION III &middot; PILLARS</div><div class="pageno">10</div></div>
+</section>
+
+<!-- =================== SLIDE 11: RISK SEGMENTATION =================== -->
+<section class="slide">
+  <div class="frame"><div class="brand"><span class="dot"></span> CUSTOMER SEGMENTATION</div><div>11 / 16</div></div>
+  <div class="s-head">
+    <div class="left">
+      <div class="eyebrow">Section III &middot; Risk segmentation</div>
+      <h2>Three risk tiers &mdash; <em>treated differently</em>, every bucket.</h2>
+    </div>
+    <div class="right"><p>Segmentation built from bureau, behaviour, intent, and macro overlay. Refreshed monthly; cohort-based learning loop.</p></div>
+  </div>
+
+  <div class="three-col">
+    <div class="panel" style="border-color:var(--jade)"><span class="tag" style="color:var(--jade)">Tier L &middot; Low risk</span>
+      <h3 style="color:var(--paper)">"<em style="color:var(--jade)">First-slip</em> salaried &amp; secured"</h3>
+      <p><strong>Profile:</strong> salaried, clean bureau, mandate healthy historically, single bounce. <em class="italic">~55% of book.</em></p>
+      <ul>
+        <li>Treatment: digital-only first, no FOS</li>
+        <li>Cure target: 80%+ within 1-30 DPD</li>
+        <li>Cost ceiling: &lt;Rs.80/case avg</li>
+        <li>NPS preserved as cross-sell asset</li>
+      </ul>
+    </div>
+    <div class="panel" style="border-color:var(--gold)"><span class="tag">Tier M &middot; Medium risk</span>
+      <h3 style="color:var(--paper)">"<em>Cyclical</em> self-employed"</h3>
+      <p><strong>Profile:</strong> self-employed/MSME, mild bureau stress, repeat 1-30 DPD, seasonal income. <em class="italic">~30% of book.</em></p>
+      <ul>
+        <li>Treatment: digital + tele, FOS at 31+</li>
+        <li>Cure target: 60%+ within 1-60 DPD</li>
+        <li>Restructure offered selectively</li>
+        <li>Co-applicant engaged at 31 DPD</li>
+      </ul>
+    </div>
+    <div class="panel" style="border-color:var(--oxblood-soft)"><span class="tag" style="color:var(--oxblood-soft)">Tier H &middot; High risk</span>
+      <h3 style="color:var(--paper)">"<em style="color:var(--oxblood-soft)">Stress &amp; intent</em>-flagged"</h3>
+      <p><strong>Profile:</strong> thin file, bounce history, geography/industry stress, fraud flags, broken PTPs. <em class="italic">~15% of book, drives 70% of losses.</em></p>
+      <ul>
+        <li>Treatment: full-stack from day 1; FOS doorstep at 5 DPD</li>
+        <li>Cure target: 35%+ within 1-90 DPD</li>
+        <li>Legal funnel pre-staged at 45 DPD</li>
+        <li>Repo / SARFAESI 13(2) at 75 DPD if secured</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="thinrule" style="margin:24px 0 12px"></div>
+
+  <div class="grid" style="grid-template-columns:1fr 1fr 1fr;gap:18px">
+    <div class="kpi"><div class="v"><em>15+</em></div><div class="l">Behavioural features in scoring</div><div class="s">Bounce history, mandate health, app activity, geo, sectoral stress, social signals</div></div>
+    <div class="kpi"><div class="v"><em>Monthly</em></div><div class="l">Cohort refresh</div><div class="s">Champion-challenger on segment cuts; auto-prune low-lift segments</div></div>
+    <div class="kpi"><div class="v"><em>Single</em></div><div class="l">Customer 360 view</div><div class="s">Risk + ops + CX share one identity, one history, one treatment plan</div></div>
+  </div>
+
+  <div class="foot"><div>SECTION III &middot; SEGMENTATION</div><div class="pageno">11</div></div>
+</section>
+
+<!-- =================== SLIDE 12: PRE-DPD ACTION PLAN =================== -->
+<section class="slide">
+  <div class="frame"><div class="brand"><span class="dot"></span> ACTION PLAN &middot; PRE-DPD</div><div>12 / 16</div></div>
+  <div class="s-head">
+    <div class="left">
+      <div class="eyebrow">Bucket I &middot; T-7 to T-1 &middot; Pre-due</div>
+      <h2>Stop the bounce <em>before</em> it happens.</h2>
+    </div>
+    <div class="right"><p>Cheapest cure is the EMI that never bounces. Mandate health is the leading indicator no one is watching enough.</p></div>
+  </div>
+
+  <table class="matrix">
+    <thead><tr>
+      <th class="bucket">Channel</th><th>Tier L &middot; Low</th><th>Tier M &middot; Medium</th><th>Tier H &middot; High</th><th>Owner</th><th>KPI</th>
+    </tr></thead>
+    <tbody>
+      <tr><td class="b">Digital / Self-serve</td>
+        <td>T-3 app push + WhatsApp; mandate health badge</td>
+        <td>T-3 app + email; "switch account" CTA if mandate score low</td>
+        <td>T-5 daily nudges; auto-pull PTP if intent-flagged</td>
+        <td>Head &middot; Digital</td>
+        <td>Mandate fail rate &lt;5.5%</td></tr>
+      <tr><td class="b">Tele / IVR</td>
+        <td>None</td>
+        <td>T-2 IVR; agent on no-response</td>
+        <td>T-3 agent call, soft tone, payment-plan offer</td>
+        <td>Head &middot; Tele</td>
+        <td>Pre-due connect &gt;70%</td></tr>
+      <tr><td class="b">Field / FOS</td>
+        <td>None</td>
+        <td>None</td>
+        <td>Geo-flag stress pin-codes; FOS standby</td>
+        <td>Head &middot; Field</td>
+        <td>Geo-list refresh weekly</td></tr>
+      <tr><td class="b">Legal</td>
+        <td>NA</td><td>NA</td><td>NA</td>
+        <td>&mdash;</td><td>&mdash;</td></tr>
+      <tr><td class="b">Analytics</td>
+        <td colspan="3">Mandate-health score (daily) &middot; Propensity-to-bounce (T-7) &middot; Channel uplift A/B &middot; Geo &amp; sector stress overlay</td>
+        <td>CRO &middot; Head Analytics</td>
+        <td>Bounce model AUC &gt;0.78</td></tr>
+    </tbody>
+  </table>
+
+  <div class="thinrule" style="margin:24px 0 14px"></div>
+
+  <div class="four-col">
+    <div class="panel"><span class="tag">Action 1</span><h3>Mandate-health engine</h3><p>Score every active mandate daily; trigger pre-emptive switch / re-mandate. <strong>SLA:</strong> 60 days build.</p></div>
+    <div class="panel"><span class="tag">Action 2</span><h3>WhatsApp pay-rail</h3><p>BSP integrated; pay-link, statement, PTP capture. <strong>SLA:</strong> 45 days.</p></div>
+    <div class="panel"><span class="tag">Action 3</span><h3>Pre-due IVR-bot</h3><p>Soft, segmented; escalates to agent on no-response for M/H. <strong>SLA:</strong> 30 days.</p></div>
+    <div class="panel"><span class="tag">Action 4</span><h3>Stress geo-overlay</h3><p>Daily refresh of high-risk pin-codes / sectors; FOS standby. <strong>SLA:</strong> 30 days.</p></div>
+  </div>
+
+  <div class="foot"><div>BUCKET I &middot; PRE-DPD</div><div class="pageno">12</div></div>
+</section>
+
+<!-- =================== SLIDE 13: 1-30 DPD =================== -->
+<section class="slide">
+  <div class="frame"><div class="brand"><span class="dot"></span> ACTION PLAN &middot; 1-30 DPD &middot; SMA-0</div><div>13 / 16</div></div>
+  <div class="s-head">
+    <div class="left">
+      <div class="eyebrow">Bucket II &middot; 1-30 DPD &middot; Stage 1</div>
+      <h2>Where <em>62%</em> of cure happens &mdash; if we move fast.</h2>
+    </div>
+    <div class="right"><p>The first seven days drive two-thirds of the bucket cure. After day 14, marginal cost rises sharply.</p></div>
+  </div>
+
+  <table class="matrix">
+    <thead><tr>
+      <th class="bucket">Channel</th><th>Tier L &middot; Low</th><th>Tier M &middot; Medium</th><th>Tier H &middot; High</th><th>Owner</th><th>KPI</th>
+    </tr></thead>
+    <tbody>
+      <tr><td class="b">Digital / Self-serve</td>
+        <td>Day 1: app + WhatsApp pay-link; one-click pay; bounce-fee waiver if cure D+3</td>
+        <td>Day 1-3: WhatsApp + email; rescheduler enabled; part-pay accepted</td>
+        <td>Day 1: PTP capture, daily WhatsApp till cure</td>
+        <td>Head &middot; Digital</td>
+        <td>1-30 cure rate &gt;65%</td></tr>
+      <tr><td class="b">Tele / IVR</td>
+        <td>Day 3 if uncured: bot call &rarr; agent on no-response</td>
+        <td>Daily from Day 1; supervisor on Day 7</td>
+        <td>Twice-daily Day 1-7; recorded; escalation script</td>
+        <td>Head &middot; Tele</td>
+        <td>Right-party-contact &gt;60%</td></tr>
+      <tr><td class="b">Field / FOS</td>
+        <td>None</td>
+        <td>None (digital + tele only)</td>
+        <td>Doorstep PTP visit Day 5-10</td>
+        <td>Head &middot; Field</td>
+        <td>FOS PTP-keep rate &gt;55%</td></tr>
+      <tr><td class="b">Legal</td>
+        <td>NA</td>
+        <td>NA</td>
+        <td>Notice template prepped; co-applicant intimation</td>
+        <td>Head &middot; Legal</td>
+        <td>NA</td></tr>
+      <tr><td class="b">Analytics</td>
+        <td colspan="3">Roll-forward predictor &middot; Cure-prob per cell &middot; Channel uplift A/B &middot; Agent &amp; agency scorecard refresh weekly</td>
+        <td>CRO</td>
+        <td>Roll-fwd model AUC &gt;0.80</td></tr>
+    </tbody>
+  </table>
+
+  <div class="thinrule" style="margin:24px 0 14px"></div>
+
+  <div class="three-col">
+    <div class="panel"><span class="tag">Action</span><h3>"7-day window" SOP</h3><p>Every uncured account in 1-7 DPD gets a defined treatment recipe. Treat it like an emergency room.</p></div>
+    <div class="panel"><span class="tag">Action</span><h3>Cure-weighted incentive</h3><p>Agent &amp; agency commission = 60% on full-cure, 30% on PTP-kept, 10% on contact. <em class="italic">Pay for outcome.</em></p></div>
+    <div class="panel"><span class="tag">Action</span><h3>Self-serve rescheduler</h3><p>One free EMI deferral every 12 months; instant approval if cure-prob clears bar. ICICI playbook adapted.</p></div>
+  </div>
+
+  <div class="foot"><div>BUCKET II &middot; 1-30 DPD</div><div class="pageno">13</div></div>
+</section>
+
+<!-- =================== SLIDE 14: 31-60 DPD =================== -->
+<section class="slide">
+  <div class="frame"><div class="brand"><span class="dot"></span> ACTION PLAN &middot; 31-60 DPD &middot; SMA-1</div><div>14 / 16</div></div>
+  <div class="s-head">
+    <div class="left">
+      <div class="eyebrow">Bucket III &middot; 31-60 DPD &middot; Stage 2 (early)</div>
+      <h2>Pivot to <em>field + restructure</em>; analytics decides who.</h2>
+    </div>
+    <div class="right"><p>Stage 2 doubles ECL provision. Every basis-point of cure here is worth 3-4&times; later.</p></div>
+  </div>
+
+  <table class="matrix">
+    <thead><tr>
+      <th class="bucket">Channel</th><th>Tier L &middot; Low</th><th>Tier M &middot; Medium</th><th>Tier H &middot; High</th><th>Owner</th><th>KPI</th>
+    </tr></thead>
+    <tbody>
+      <tr><td class="b">Digital / Self-serve</td>
+        <td>Settlement calculator; restructure offer enabled</td>
+        <td>Restructure / step-up offer; co-applicant comms</td>
+        <td>OTS calculator visible; last-chance flag</td>
+        <td>Head &middot; Digital</td>
+        <td>Self-serve restructure adoption &gt;25%</td></tr>
+      <tr><td class="b">Tele / IVR</td>
+        <td>Supervisor calls; restructure pitch</td>
+        <td>Daily; broken-PTP escalation; co-applicant call</td>
+        <td>Daily incl. weekend; recorded; pre-legal warning</td>
+        <td>Head &middot; Tele</td>
+        <td>Broken-PTP rate &lt;30%</td></tr>
+      <tr><td class="b">Field / FOS</td>
+        <td>Optional based on cure-prob</td>
+        <td>Mandatory FOS visit; co-applicant address</td>
+        <td>Multiple visits; guarantor invoked; collateral inspection</td>
+        <td>Head &middot; Field</td>
+        <td>FOS visit-to-cure &gt;40%</td></tr>
+      <tr><td class="b">Legal</td>
+        <td>NA</td>
+        <td>Pre-legal notice (intimation)</td>
+        <td>SARFAESI 13(2) prep for secured; arbitration prep</td>
+        <td>Head &middot; Legal</td>
+        <td>Notice issuance &lt;7 days post-trigger</td></tr>
+      <tr><td class="b">Analytics</td>
+        <td colspan="3">Cure probability re-scored weekly &middot; Agency allocation optimiser &middot; Restructure NPV calculator &middot; LGD overlay</td>
+        <td>CRO</td>
+        <td>Optimiser uplift &gt;12%</td></tr>
+    </tbody>
+  </table>
+
+  <div class="thinrule" style="margin:24px 0 14px"></div>
+
+  <div class="three-col">
+    <div class="panel"><span class="tag">Action</span><h3>Restructure framework</h3><p>Codified: eligibility, NPV-positive test, IndAS treatment, RBI restructuring norms. No deal-by-deal decisions.</p></div>
+    <div class="panel"><span class="tag">Action</span><h3>Agency tiering live</h3><p>Top 3 agencies, scored monthly on cure-rate; bottom rotated out quarterly. BAF-style.</p></div>
+    <div class="panel"><span class="tag">Action</span><h3>FOS digital backbone</h3><p>Geo-tagged app, photo evidence, conversation recording, central QC sample 5%. ICICI playbook.</p></div>
+  </div>
+
+  <div class="foot"><div>BUCKET III &middot; 31-60 DPD</div><div class="pageno">14</div></div>
+</section>
+
+<!-- =================== SLIDE 15: 61-90 DPD =================== -->
+<section class="slide">
+  <div class="frame"><div class="brand"><span class="dot"></span> ACTION PLAN &middot; 61-90 DPD &middot; SMA-2</div><div>15 / 16</div></div>
+  <div class="s-head">
+    <div class="left">
+      <div class="eyebrow">Bucket IV &middot; 61-90 DPD &middot; Stage 2 (late) &middot; Pre-NPA</div>
+      <h2>Last chance &mdash; <em>negotiate hard</em>, escalate harder.</h2>
+    </div>
+    <div class="right"><p>Day 91 is a one-way door: ECL Stage 3, RBI NPA classification, NNPA hit. Every day in this bucket is a discrete fight.</p></div>
+  </div>
+
+  <table class="matrix">
+    <thead><tr>
+      <th class="bucket">Channel</th><th>Tier L &middot; Low</th><th>Tier M &middot; Medium</th><th>Tier H &middot; High</th><th>Owner</th><th>KPI</th>
+    </tr></thead>
+    <tbody>
+      <tr><td class="b">Digital / Self-serve</td>
+        <td>Last-chance OTS portal; settlement calculator</td>
+        <td>OTS portal + payment plan offers</td>
+        <td>OTS portal + repo notice digital delivery</td>
+        <td>Head &middot; Digital</td>
+        <td>OTS uptake &gt;15% of bucket</td></tr>
+      <tr><td class="b">Tele / IVR</td>
+        <td>Supervisor + branch head calls</td>
+        <td>Recovery manager calls; co-applicant escalation</td>
+        <td>Pre-legal calls; final warning recorded</td>
+        <td>Head &middot; Tele</td>
+        <td>Final-call connect &gt;75%</td></tr>
+      <tr><td class="b">Field / FOS</td>
+        <td>Branch head visit</td>
+        <td>FOS + co-applicant + guarantor visits</td>
+        <td>Vehicle repossession (secured); seizure SOP</td>
+        <td>Head &middot; Field / Repo</td>
+        <td>Repo TAT &lt;14 days post-trigger</td></tr>
+      <tr><td class="b">Legal</td>
+        <td>S.138 NI Act if cheque-back</td>
+        <td>Arbitration / S.138; SARFAESI 13(4) for secured</td>
+        <td>Full legal funnel: SARFAESI possession, Lok Adalat, OTS scheme</td>
+        <td>Head &middot; Legal</td>
+        <td>Recovery-to-legal-cost ratio &gt;5&times;</td></tr>
+      <tr><td class="b">Analytics</td>
+        <td colspan="3">NPA-prevention dashboard daily &middot; Daily DPD stamping reconciled &middot; OTS NPV vs hold-to-NPA simulator &middot; Lok Adalat pipeline</td>
+        <td>CRO</td>
+        <td>NPA roll-rate &lt;9%</td></tr>
+    </tbody>
+  </table>
+
+  <div class="thinrule" style="margin:24px 0 14px"></div>
+
+  <div class="three-col">
+    <div class="panel"><span class="tag">Action</span><h3>Calendarised OTS</h3><p>Quarterly settlement windows for SMA-2; pre-approved bands by segment; SBI playbook. Governance, not improvisation.</p></div>
+    <div class="panel"><span class="tag">Action</span><h3>Repo SOP &amp; remarketing</h3><p>Yard network, valuation, auction within 21 days. Shriram-grade execution for vehicle/secured.</p></div>
+    <div class="panel"><span class="tag">Action</span><h3>NPA-prevention war-room</h3><p>Daily 30-minute huddle, top-N at-risk accounts, owner per account, action by EOD. <em class="italic">"The meeting that runs collections."</em></p></div>
+  </div>
+
+  <div class="foot"><div>BUCKET IV &middot; 61-90 DPD</div><div class="pageno">15</div></div>
+</section>
+
+<!-- =================== SLIDE 16: ROADMAP / KPIs / ASKS =================== -->
+<section class="slide">
+  <div class="frame"><div class="brand"><span class="dot"></span> 90-DAY ROADMAP &middot; KPIs &middot; ASK</div><div>16 / 16</div></div>
+  <div class="s-head">
+    <div class="left">
+      <div class="eyebrow">Section IV &middot; Execution</div>
+      <h2>What we'll <em>do</em>, what we'll <em>measure</em>, what we <em>need</em>.</h2>
+    </div>
+    <div class="right"><p>Approve the architecture and the asks. Execution begins T+0; first board update T+90.</p></div>
+  </div>
+
+  <div class="timeline">
+    <div class="tl-row">
+      <div class="when">T+0 &mdash; T+30</div>
+      <div class="what">
+        <div><h5>Foundation</h5><p>Daily DPD stamping engine live &middot; Customer 360 stitched &middot; Mandate-health v1 &middot; WhatsApp BSP integrated &middot; Pre-due IVR-bot</p></div>
+        <div><h5>Quick wins</h5><p>Cure-weighted incentive rolled out &middot; Agency tiering announced &middot; FOS app v1 piloted in 3 clusters</p></div>
+        <div><h5>Governance</h5><p>Daily flow huddle (CRO + Heads) &middot; Weekly bucket review &middot; Monthly NPA-prevention scorecard</p></div>
+      </div>
+    </div>
+    <div class="tl-row">
+      <div class="when">T+30 &mdash; T+60</div>
+      <div class="what">
+        <div><h5>Decisioning</h5><p>Propensity-to-default v1 &middot; Cure-probability per bucket &middot; Channel uplift A/B engine &middot; Stress geo-overlay live</p></div>
+        <div><h5>Scale</h5><p>Self-serve rescheduler in app &middot; FOS app full-rollout &middot; Restructure framework codified &middot; OTS calendar Q1 published</p></div>
+        <div><h5>People</h5><p>In-house Tier-1 tele up to 60% capacity &middot; Agency rotation cycle 1 closed</p></div>
+      </div>
+    </div>
+    <div class="tl-row">
+      <div class="when">T+60 &mdash; T+90</div>
+      <div class="what">
+        <div><h5>Optimise</h5><p>Agency allocation optimiser &middot; LGD overlay &middot; Repo SOP v2 &middot; SARFAESI funnel discipline 13(2) auto-trigger</p></div>
+        <div><h5>Outcomes target</h5><p>Pre-DPD bounce &minus;120bps &middot; 1-30 cure +800bps &middot; SMA-2 to NPA roll &minus;200bps &middot; Cost-to-collect &minus;15%</p></div>
+        <div><h5>Board update</h5><p>Bucket-flow dashboard &middot; NPS in collected pool &middot; Provisioning impact &middot; FY26 ask refreshed</p></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="thinrule" style="margin:18px 0 14px"></div>
+
+  <div class="grid" style="grid-template-columns:2fr 1fr;gap:24px">
+    <div class="panel"><span class="tag">Board KPIs &middot; quarterly</span>
+      <h3>The five numbers we'll be judged on</h3>
+      <ul>
+        <li><strong>Mandate fail-rate</strong> &middot; current ~7.5% &rarr; target &lt;5.5%</li>
+        <li><strong>1-30 cure rate (full arrears)</strong> &middot; current ~57% &rarr; target &gt;65%</li>
+        <li><strong>SMA-2 to NPA roll-rate</strong> &middot; current ~14% &rarr; target &lt;9%</li>
+        <li><strong>Cost-to-collect (% of POS)</strong> &middot; current ~3.1% &rarr; target &lt;2.6%</li>
+        <li><strong>Collections NPS</strong> &middot; current &minus;31 &rarr; target above &minus;10</li>
+      </ul>
+    </div>
+    <div class="panel" style="border-color:var(--gold)"><span class="tag">Ask of the Board</span>
+      <h3 style="color:var(--gold)"><em>Approve</em></h3>
+      <ul>
+        <li>FY26 collections tech capex: <strong>Rs.42 cr</strong></li>
+        <li>In-house tele scale-up: <strong>+180 FTE</strong></li>
+        <li>Restructure framework &amp; OTS calendar policy</li>
+        <li>Agency tiering &amp; rotation governance</li>
+        <li>CRO-led daily flow huddle as standing forum</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="foot"><div>SECTION IV &middot; EXECUTION</div><div class="pageno">16</div></div>
+</section>
+
+</div>
+
+<script>
+(function(){
+  const slides = document.querySelectorAll('.slide');
+  const nav = document.getElementById('nav');
+  let idx = 0;
+  slides.forEach((s,i)=>{
+    const b = document.createElement('button');
+    b.setAttribute('aria-label','slide '+(i+1));
+    b.addEventListener('click',()=>go(i));
+    nav.appendChild(b);
+  });
+  function go(n){
+    idx = Math.max(0, Math.min(slides.length-1, n));
+    slides.forEach((s,i)=>s.classList.toggle('active', i===idx));
+    nav.querySelectorAll('button').forEach((b,i)=>b.classList.toggle('on', i===idx));
+  }
+  go(0);
+  document.getElementById('next').addEventListener('click',()=>go(idx+1));
+  document.getElementById('prev').addEventListener('click',()=>go(idx-1));
+  document.addEventListener('keydown',e=>{
+    if(e.key==='ArrowRight'||e.key==='PageDown'||e.key===' ') go(idx+1);
+    if(e.key==='ArrowLeft'||e.key==='PageUp') go(idx-1);
+    if(e.key==='Home') go(0);
+    if(e.key==='End') go(slides.length-1);
+  });
+})();
+</script>
+</body>
+</html>
