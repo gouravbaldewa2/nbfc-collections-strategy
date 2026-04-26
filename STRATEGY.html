@@ -1,0 +1,479 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>NBFC 0-90 DPD Collections Operating Playbook</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght,SOFT@9..144,300..900,30..100&family=Geist:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<script src="https://cdn.jsdelivr.net/npm/marked@12.0.2/marked.min.js"></script>
+<style>
+:root{
+  --ink:#0c0f17;
+  --ink-2:#141826;
+  --ink-3:#1d2233;
+  --paper:#f3ecdd;
+  --paper-soft:#e8dfc9;
+  --paper-mute:#c8c1ad;
+  --rule:#3a3f52;
+  --rule-soft:#252a3a;
+  --mute:#8b8f9e;
+  --oxblood:#a8331f;
+  --oxblood-soft:#c45c45;
+  --gold:#c9a227;
+  --gold-soft:#e7c44d;
+  --jade:#3f7a5f;
+  --slate:#5a6479;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{
+  background:var(--ink);
+  color:var(--paper-soft);
+  font-family:"Geist",sans-serif;
+  font-weight:400;
+  -webkit-font-smoothing:antialiased;
+  text-rendering:geometricPrecision;
+  line-height:1.65;
+  font-size:15.5px;
+}
+
+/* ============== Layout ============== */
+.shell{display:grid;grid-template-columns:300px 1fr;min-height:100vh}
+@media (max-width:980px){
+  .shell{grid-template-columns:1fr}
+  aside{display:none}
+}
+
+/* ============== Sidebar ============== */
+aside{
+  position:sticky;top:0;height:100vh;overflow-y:auto;
+  background:var(--ink-2);
+  border-right:1px solid var(--rule-soft);
+  padding:36px 28px;
+}
+aside::-webkit-scrollbar{width:6px}
+aside::-webkit-scrollbar-track{background:transparent}
+aside::-webkit-scrollbar-thumb{background:var(--rule);border-radius:3px}
+
+.brand{display:flex;align-items:center;gap:12px;margin-bottom:28px}
+.brand .dot{width:7px;height:7px;background:var(--oxblood);border-radius:50%;box-shadow:0 0 0 3px rgba(168,51,31,.18)}
+.brand span{font-family:"JetBrains Mono",monospace;font-size:10.5px;letter-spacing:.2em;text-transform:uppercase;color:var(--gold)}
+
+aside h1{
+  font-family:"Fraunces",serif;
+  font-weight:300;
+  font-size:24px;
+  line-height:1.15;
+  letter-spacing:-.01em;
+  color:var(--paper);
+  margin-bottom:6px;
+}
+aside h1 em{font-style:italic;color:var(--gold-soft)}
+aside .meta{font-family:"JetBrains Mono",monospace;font-size:10px;letter-spacing:.16em;text-transform:uppercase;color:var(--mute);margin-bottom:24px}
+
+aside nav{margin-top:8px}
+aside nav .section{margin-bottom:16px}
+aside nav .section-label{font-family:"JetBrains Mono",monospace;font-size:9.5px;letter-spacing:.22em;text-transform:uppercase;color:var(--gold);margin-bottom:8px}
+aside nav a{
+  display:block;
+  padding:6px 10px 6px 14px;
+  color:var(--paper-mute);
+  text-decoration:none;
+  font-family:"Geist",sans-serif;
+  font-size:13px;
+  line-height:1.4;
+  border-left:1px solid transparent;
+  transition:all .2s;
+}
+aside nav a:hover{color:var(--paper);border-left-color:var(--gold)}
+aside nav a.active{color:var(--gold);border-left-color:var(--gold);background:rgba(201,162,39,.05)}
+aside nav a.lvl-3{padding-left:26px;font-size:12.5px;color:var(--mute)}
+aside nav a.lvl-3:hover{color:var(--paper-soft)}
+
+.deck-link{
+  margin-top:32px;
+  padding:14px 16px;
+  border:1px solid var(--rule);
+  display:block;
+  text-decoration:none;
+  background:linear-gradient(180deg,rgba(201,162,39,.04),transparent);
+  transition:all .25s;
+  border-radius:2px;
+}
+.deck-link:hover{border-color:var(--gold);background:rgba(201,162,39,.08)}
+.deck-link .label{font-family:"JetBrains Mono",monospace;font-size:9.5px;letter-spacing:.22em;text-transform:uppercase;color:var(--gold);margin-bottom:4px;display:block}
+.deck-link .title{font-family:"Fraunces",serif;font-style:italic;font-size:14px;color:var(--paper);line-height:1.3;display:block}
+.deck-link .arrow{font-family:"Fraunces",serif;font-size:18px;color:var(--gold);font-style:italic}
+
+/* ============== Main content ============== */
+main{padding:64px 88px 120px;max-width:920px}
+@media (max-width:980px){main{padding:36px 28px 80px}}
+
+.frame{display:flex;justify-content:space-between;align-items:center;font-family:"JetBrains Mono",monospace;font-size:10.5px;letter-spacing:.18em;text-transform:uppercase;color:var(--mute);margin-bottom:48px;padding-bottom:18px;border-bottom:1px solid var(--rule-soft)}
+
+.content{font-feature-settings:"liga","kern"}
+.content > p:first-of-type{font-family:"Fraunces",serif;font-style:italic;font-weight:400;font-size:18px;line-height:1.5;color:var(--paper);margin-bottom:24px;letter-spacing:-.005em}
+
+.content h1{
+  font-family:"Fraunces",serif;
+  font-weight:300;
+  font-variation-settings:"opsz" 144,"SOFT" 100;
+  font-size:54px;
+  line-height:1.05;
+  letter-spacing:-.025em;
+  color:var(--paper);
+  margin:0 0 12px;
+}
+.content h1:not(:first-child){margin-top:80px;padding-top:36px;border-top:1px solid var(--rule)}
+.content h1 em{font-style:italic;color:var(--gold-soft);font-weight:400}
+
+.content h2{
+  font-family:"Fraunces",serif;
+  font-weight:400;
+  font-size:34px;
+  line-height:1.15;
+  letter-spacing:-.015em;
+  color:var(--paper);
+  margin:56px 0 16px;
+}
+.content h2 em{font-style:italic;color:var(--gold-soft)}
+
+.content h3{
+  font-family:"Fraunces",serif;
+  font-weight:500;
+  font-size:22px;
+  line-height:1.25;
+  letter-spacing:-.005em;
+  color:var(--paper);
+  margin:36px 0 12px;
+}
+.content h3 em{font-style:italic;color:var(--gold-soft)}
+
+.content h4{
+  font-family:"JetBrains Mono",monospace;
+  font-weight:500;
+  font-size:11px;
+  letter-spacing:.18em;
+  text-transform:uppercase;
+  color:var(--gold);
+  margin:28px 0 10px;
+}
+
+.content p{margin:0 0 16px;color:var(--paper-soft)}
+.content strong{color:var(--paper);font-weight:600}
+.content em{font-family:"Fraunces",serif;font-style:italic;color:var(--paper)}
+
+.content a{color:var(--gold);text-decoration:none;border-bottom:1px solid rgba(201,162,39,.3);transition:all .2s}
+.content a:hover{color:var(--gold-soft);border-bottom-color:var(--gold-soft)}
+
+.content ul,.content ol{margin:0 0 18px 0;padding-left:0;list-style:none}
+.content ul li,.content ol li{position:relative;padding-left:22px;margin-bottom:8px;line-height:1.6}
+.content ul li::before{
+  content:"";position:absolute;left:0;top:11px;width:10px;height:1px;background:var(--gold);
+}
+.content ol{counter-reset:item}
+.content ol li{counter-increment:item}
+.content ol li::before{
+  content:counter(item) ".";
+  position:absolute;left:0;top:0;
+  font-family:"JetBrains Mono",monospace;
+  font-size:11px;
+  color:var(--gold);
+  background:none;width:auto;height:auto;
+}
+.content ul ul,.content ol ol,.content ul ol,.content ol ul{margin:8px 0 8px 12px}
+
+.content blockquote{
+  margin:24px 0;
+  padding:18px 24px;
+  border-left:2px solid var(--gold);
+  background:rgba(201,162,39,.04);
+  font-family:"Fraunces",serif;
+  font-style:italic;
+  font-size:16px;
+  line-height:1.55;
+  color:var(--paper);
+  border-radius:0 2px 2px 0;
+}
+.content blockquote p{margin-bottom:8px;color:var(--paper)}
+.content blockquote p:last-child{margin-bottom:0}
+
+.content code{
+  font-family:"JetBrains Mono",monospace;
+  font-size:13px;
+  background:rgba(201,162,39,.08);
+  color:var(--gold-soft);
+  padding:2px 6px;
+  border-radius:2px;
+  border:1px solid rgba(201,162,39,.15);
+}
+.content pre{
+  background:var(--ink-2);
+  border:1px solid var(--rule-soft);
+  border-radius:3px;
+  padding:18px 20px;
+  overflow-x:auto;
+  margin:20px 0;
+  font-family:"JetBrains Mono",monospace;
+  font-size:12.5px;
+  line-height:1.55;
+  color:var(--paper-mute);
+}
+.content pre code{background:transparent;border:none;padding:0;color:inherit;font-size:inherit}
+
+.content hr{
+  border:none;
+  height:1px;
+  background:linear-gradient(90deg,transparent,var(--rule) 20%,var(--rule) 80%,transparent);
+  margin:48px 0;
+}
+
+/* Tables */
+.content table{
+  width:100%;
+  border-collapse:collapse;
+  margin:20px 0 28px;
+  font-size:13px;
+  background:rgba(255,255,255,.015);
+  border:1px solid var(--rule-soft);
+}
+.content thead{background:rgba(201,162,39,.04)}
+.content th{
+  font-family:"JetBrains Mono",monospace;
+  font-size:10px;
+  font-weight:500;
+  letter-spacing:.18em;
+  text-transform:uppercase;
+  color:var(--gold);
+  padding:12px 14px;
+  text-align:left;
+  border-bottom:1px solid var(--rule);
+  vertical-align:top;
+}
+.content td{
+  padding:11px 14px;
+  border-bottom:1px solid var(--rule-soft);
+  vertical-align:top;
+  color:var(--paper-soft);
+  line-height:1.5;
+}
+.content tr:last-child td{border-bottom:none}
+.content tr:hover td{background:rgba(255,255,255,.015)}
+.content td strong{color:var(--paper)}
+
+/* Mermaid block fallback */
+.content pre.mermaid-block{
+  background:var(--ink-3);
+  border-color:var(--rule);
+  font-size:11.5px;
+  color:var(--paper-mute);
+}
+
+/* ============== Header band ============== */
+.title-band{
+  margin:0 0 48px;
+  padding:36px 0 32px;
+  border-bottom:1px solid var(--rule);
+  position:relative;
+}
+.title-band .eyebrow{font-family:"JetBrains Mono",monospace;font-size:11px;letter-spacing:.22em;text-transform:uppercase;color:var(--gold);margin-bottom:12px}
+.title-band h1.doc-title{
+  font-family:"Fraunces",serif;
+  font-weight:300;
+  font-variation-settings:"opsz" 144,"SOFT" 100;
+  font-size:64px;
+  line-height:.98;
+  letter-spacing:-.025em;
+  color:var(--paper);
+  margin-bottom:14px;
+  border:none;
+  padding:0;
+}
+.title-band h1.doc-title em{font-style:italic;color:var(--gold-soft);font-weight:400}
+.title-band .doc-meta{display:flex;gap:36px;flex-wrap:wrap;margin-top:18px;font-family:"JetBrains Mono",monospace;font-size:10.5px;letter-spacing:.16em;text-transform:uppercase;color:var(--mute)}
+.title-band .doc-meta span strong{color:var(--paper-soft);font-weight:500;display:block;margin-top:3px;font-family:"Fraunces",serif;font-style:italic;font-size:13px;letter-spacing:0;text-transform:none}
+
+/* Loading state */
+.loading{display:flex;flex-direction:column;align-items:flex-start;gap:14px;padding:40px 0;color:var(--mute);font-family:"JetBrains Mono",monospace;font-size:11px;letter-spacing:.16em;text-transform:uppercase}
+.loading::before{content:"";display:block;width:24px;height:1px;background:var(--gold);animation:pulse 1.4s ease-in-out infinite}
+@keyframes pulse{0%,100%{transform:scaleX(.3);opacity:.4}50%{transform:scaleX(1);opacity:1}}
+
+/* ============== Top progress bar ============== */
+.progress{position:fixed;top:0;left:0;height:2px;background:var(--gold);width:0%;z-index:100;transition:width .15s}
+
+/* Print */
+@media print{
+  body{background:#fff;color:#111}
+  aside,.frame,.progress,.deck-link{display:none}
+  .shell{grid-template-columns:1fr}
+  main{padding:24px;max-width:none}
+  .content h1,.content h2,.content h3,.content h4{color:#111;break-after:avoid}
+  .content p,.content li,.content td{color:#222}
+  .content table,.content th,.content td{border-color:#999}
+  .content blockquote{background:#f5f0e0;color:#222;border-left-color:#a07000}
+  .content em{color:#444}
+  .title-band h1.doc-title{color:#111}
+  .title-band h1.doc-title em{color:#a07000}
+  .content h1 em,.content h2 em,.content h3 em{color:#a07000}
+}
+</style>
+</head>
+<body>
+<div class="progress" id="progress"></div>
+
+<div class="shell">
+
+<aside>
+  <div class="brand"><span class="dot"></span><span>OPERATING PLAYBOOK &middot; v1.0</span></div>
+  <h1>Win the <em>0-90</em> window.</h1>
+  <div class="meta">FY26 &middot; Confidential</div>
+
+  <nav id="toc">
+    <div class="section">
+      <div class="section-label">Loading TOC&hellip;</div>
+    </div>
+  </nav>
+
+  <a class="deck-link" href="index.html">
+    <span class="label">Companion artefact</span>
+    <span class="title">Open the board strategy deck <span class="arrow">&rarr;</span></span>
+  </a>
+</aside>
+
+<main>
+  <div class="frame">
+    <div>NBFC &middot; CHIEF RISK OFFICE</div>
+    <div>Reading time &middot; ~75 min</div>
+  </div>
+
+  <div class="title-band">
+    <div class="eyebrow">Operating Playbook &middot; FY26</div>
+    <h1 class="doc-title">NBFC <em>0&ndash;90 DPD</em><br/>Collections Operating Playbook</h1>
+    <div class="doc-meta">
+      <span>Version<strong>1.0</strong></span>
+      <span>Audience<strong>Board RAC &amp; CXO</strong></span>
+      <span>Anchor<strong>RBI IRACP &middot; Nov-2021</strong></span>
+      <span>Benchmark<strong>BAF, Shriram, HDFC, ICICI, SBI</strong></span>
+    </div>
+  </div>
+
+  <div class="content" id="content">
+    <div class="loading">Loading playbook&hellip;</div>
+  </div>
+</main>
+
+</div>
+
+<script>
+// Configure marked
+marked.use({
+  gfm: true,
+  breaks: false,
+  headerIds: true,
+  mangle: false
+});
+
+const slugify = (text) => text.toString().toLowerCase()
+  .replace(/[^\w\s-]/g, '')
+  .trim()
+  .replace(/\s+/g, '-');
+
+async function loadDoc(){
+  const target = document.getElementById('content');
+  try {
+    const res = await fetch('STRATEGY.md', {cache: 'no-cache'});
+    if (!res.ok) throw new Error('Failed to load STRATEGY.md ('+res.status+')');
+    let md = await res.text();
+
+    // Strip the duplicated title/meta block at top of MD (we render our own title-band)
+    // Remove top-level h1 line and its immediate metadata paragraph if present
+    md = md.replace(/^# NBFC.*?\n+\*\*Version[\s\S]*?\*\*Companion to:\*\*[^\n]*\n+/, '');
+    // Also strip any remaining leading executive-summary header dup if needed (we keep ES)
+    md = md.replace(/^---\n+/,'');
+
+    // Custom renderer to add anchors
+    const renderer = new marked.Renderer();
+    const baseHeading = renderer.heading.bind(renderer);
+    renderer.heading = (text, level, raw) => {
+      const id = slugify(typeof raw === 'string' ? raw : text);
+      return `<h${level} id="${id}">${text}</h${level}>`;
+    };
+
+    // Render
+    target.innerHTML = marked.parse(md, { renderer });
+
+    buildTOC();
+    setupScrollSpy();
+    setupProgress();
+  } catch (e) {
+    target.innerHTML = '<div style="color:#c45c45;font-family:JetBrains Mono,monospace;font-size:13px">Could not load STRATEGY.md &mdash; '+e.message+'<br><br>If you are viewing this file directly from disk, your browser may be blocking the fetch. Open via a local server, or view at the published Pages URL.</div>';
+    console.error(e);
+  }
+}
+
+function buildTOC(){
+  const toc = document.getElementById('toc');
+  const headings = document.querySelectorAll('#content h1, #content h2');
+  if (!headings.length){ toc.innerHTML = ''; return; }
+  let html = '';
+  let inSection = false;
+  headings.forEach((h, i) => {
+    const id = h.id || ('sec-'+i);
+    if (!h.id) h.id = id;
+    const txt = h.textContent.replace(/^Part [IVX]+\s*[—–-]\s*/, '');
+    const lvl = h.tagName === 'H1' ? 2 : 3;
+    if (lvl === 2) {
+      if (inSection) html += '</div>';
+      html += '<div class="section">';
+      html += '<div class="section-label">'+escapeHtml(txt)+'</div>';
+      inSection = true;
+    } else {
+      html += '<a href="#'+id+'" class="lvl-3">'+escapeHtml(txt)+'</a>';
+    }
+  });
+  if (inSection) html += '</div>';
+  toc.innerHTML = html;
+}
+
+function escapeHtml(s){return s.replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]))}
+
+function setupScrollSpy(){
+  const links = document.querySelectorAll('#toc a');
+  if (!links.length) return;
+  const map = new Map();
+  links.forEach(a => {
+    const id = a.getAttribute('href').slice(1);
+    const el = document.getElementById(id);
+    if (el) map.set(el, a);
+  });
+  const obs = new IntersectionObserver((entries) => {
+    entries.forEach(e => {
+      const a = map.get(e.target);
+      if (!a) return;
+      if (e.isIntersecting) {
+        links.forEach(l => l.classList.remove('active'));
+        a.classList.add('active');
+      }
+    });
+  }, { rootMargin: '-30% 0px -60% 0px' });
+  map.forEach((_, el) => obs.observe(el));
+}
+
+function setupProgress(){
+  const bar = document.getElementById('progress');
+  const update = () => {
+    const h = document.documentElement;
+    const max = h.scrollHeight - h.clientHeight;
+    const p = max > 0 ? (h.scrollTop / max) * 100 : 0;
+    bar.style.width = p + '%';
+  };
+  document.addEventListener('scroll', update, { passive: true });
+  update();
+}
+
+loadDoc();
+</script>
+</body>
+</html>
